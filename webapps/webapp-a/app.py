@@ -30,8 +30,19 @@ def dashboard():
         # make sure user is authenticated
         return redirect(url_for("login"))
 
-    return render_template("dashboard.html", username=session["username"], role=session["role"])
-    # if they are authenticated, load the dashboard and pass the user and role
+    current_username = session["username"]
+    current_role = session["role"]
+    # Establish role/username from login page entry
+
+    if current_role == "admin":
+        return render_template("admin_dashboard.html", username=current_username, role=current_role)
+        # if they are authenticated, load the dashboard and pass the user and role
+    elif current_role == "user":
+        return render_template("user_dashboard.html", username=current_username, role=current_role)
+    elif current_role == "guest":
+        return render_template("guest_dashboard.html", username=current_username, role=current_role)
+    
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
