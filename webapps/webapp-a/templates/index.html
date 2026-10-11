@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Test Flask App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallace Washes LLC</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
 </head>
+
 <body>
-    <h1>Hello from Flask!</h1>
-    <p>This is a normal HTML page.</p>
+    <header>
+        <h1>🦎 Wallace Washes LLC</h1>
+        <p>Clean clothes. Plus other stuff.</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section class="top">
+            <h2>Welcome to Wallace Washes!</h2>
+            <p>
+                Your neighborhood laundromat, proudly owned
+                and operated by Wallace Jaywalk.
+            </p>
+            <p>
+                We take pride in keeping things spotless.
+                Every load is handled with care.
+            </p>
+            <a class="button" href="#services">Our Services</a>
+        </section>
+
+        <section id="about">
+            <h2>Meet Wallace</h2>
+            <img src="{{ url_for('static', filename='images/wallace.png') }}"/>
+            <p>
+                Wallace Jaywalk is a friendly neighborhood
+                lizard with a passion for clean clothes
+                and small business ventures.
+            </p>
+            <p>
+                Wallace opened his laundromat after years
+                of working in produce distribution.
+                He eventually decided it was time for
+                something a little more predictable.
+            </p>
+            <p>
+                These days, he spends most of his time
+                keeping the machines running and making
+                sure deliveries arrive on schedule.
+            </p>
+            <p>
+                His motto? "No sock left behind!"
+            </p>
+        </section>
+        <section id="services">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Self-Service Washing - $3.00</li>
+                <li>Self-Service Drying - $2.00</li>
+                <li>Wash & Fold Service - $10.00</li>
+                <li>Stain Removal - Ask for Pricing</li>
+                <li>Lost Sock Investigation - FREE</li>
+            </ul>
+            <p>
+                For specialty cleaning inquiries,
+                please speak directly with Wallace.
+            </p>
+        </section>
+        <section id="contact">
+            <h2>Visit Us!</h2>
+            <p><strong>Owner:</strong> Wallace Jaywalk</p>
+            <p><strong>Business:</strong> Wallace Washes LLC</p>
+            <p><strong>Hours:</strong> 8 AM - 10 PM, Daily</p>
+            <p><strong>Email:</strong> wallace@example.com</p>
+            <p><strong>Location:</strong> 123 Lizard Lane</p>
+            <p>
+                Please use the front entrance.
+                Rear access is reserved for deliveries.
+            </p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Wallace Washes LLC</p>
+        <p>Locally owned. Independently operated.</p>
+        <p>Thank you for supporting small businesses.</p>
+    </footer>
 </body>
+
 </html>

@@ -5,12 +5,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
 </head>
-<body>
-    <h1>Time to Login!</h1>
+<body class="center">
+    <h1>Super Secret Login Portal</h1>
     <form method="POST" action="/login">
         <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
+        <input type="password" name="password" placeholder="Password"> <br>
         <button type="submit">Login</button>
     </form>
+
+    <p>If you know then you know, if you don't know then don't worry about it.</p>
 </body>
 </html>
