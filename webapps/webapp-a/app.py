@@ -13,10 +13,15 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "lab-demo-secret")
 
 DATA_FILE = Path(__file__).parent / "data" / "users.json"
+ORDERS_FILE = Path(__file__).parent / "data" / "orders.json"
 
 def load_users() -> list[dict]:
     with open(DATA_FILE) as file:
         return json.load(file)["users"]
+
+def load_orders() -> list[dict]:
+    with open(ORDERS_FILE) as file:
+        return json.load(file)["orders"]
 
 # --------------------
 # Auth Decorators
@@ -30,11 +35,14 @@ def login_required(fn):
         return fn(*args, **kwargs)
     return wrapper
 
-def role_required(role):
+ROLE_LEVELS = {"user": 1, "admin": 2, "bigadmin": 3}
+# role hierarchy: bigadmin outranks admin outranks user
+
+def role_required(minimum_role):
     def decorator(fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
-            if session.get("role") != role:
+            if ROLE_LEVELS.get(session.get("role"), 0) < ROLE_LEVELS[minimum_role]:
                 abort(403)
             return fn(*args, **kwargs)
         return wrapper
@@ -62,6 +70,7 @@ def login():
         
         for user in load_users():
             if user["username"] == username and user["password"] == password:
+                session["id"] = user["id"]
                 session["username"] = user["username"]
                 session["role"] = user["role"]
                 return redirect(url_for("dashboard"))
@@ -69,7 +78,7 @@ def login():
         error = "Invalid username or password"
     return render_template("login.html", error=error)
 
-@app.route("/logout")
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
     session.clear()
     return redirect(url_for("login"))
@@ -81,10 +90,10 @@ def logout():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    if session["role"] == "admin":
-        return render_template("admin_dashboard.html")
+    if session["role"] in ("admin", "bigadmin"):
+        return redirect(url_for("dashboard_admin"))
     if session["role"] == "user":
-        return render_template("user_dashboard.html")
+        return redirect(url_for("dashboard_users"))
     
     # don't know the role
     session.clear()
@@ -92,15 +101,35 @@ def dashboard():
 
 @app.route("/dashboard/users")
 @login_required
-@role_required("admin")
+@role_required("user")
 def dashboard_users():
-    return render_template("dashboard_users.html", username=session["username"])
+    my_orders = [o for o in load_orders() if o["user_id"] == session["id"]]
+    return render_template(
+        "user_dashboard.html",
+        username=session["username"],
+        role_name=session["role"],
+        userid=session["id"],
+        orders=my_orders,
+    )
 
 @app.route("/dashboard/admin")
 @login_required
 @role_required("admin")
 def dashboard_admin():
-    return render_template("dashboard_admin.html", username=session["username"])
+    # sample tickets until the real ticket system exists
+    tickets = [
+        {"id": 88, "operator_id": 2, "body": "the van is making the weird noise again. also I ate the evidence (it was a cherry)"},
+        {"id": 89, "operator_id": 3, "body": "skinny pete here. lost another shipment. do NOT tell the boss. update: the boss knows."},
+        {"id": 90, "operator_id": 1, "body": "when do I get good clearance? the plans page just says 403 for me."},
+    ]
+    return render_template(
+        "admin_dashboard.html",
+        username=session["username"],
+        role_name=session["role"],
+        userid=session["id"],
+        users=load_users(),
+        tickets=tickets,
+    )
 
 # --------------------
 # Entry Point

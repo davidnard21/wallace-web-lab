@@ -2,21 +2,33 @@
     "users": [
         {
             "id": 1,
-            "username": "admin",
-            "password": "admin123",
-            "role": "admin"
-        },
-        {
-            "id": 2,
             "username": "student",
             "password": "student123",
             "role": "user"
         },
         {
+            "id": 2,
+            "username": "badger",
+            "password": "badger123",
+            "role": "user"
+        },
+        {
             "id": 3,
-            "username": "guest",
-            "password": "guest123",
-            "role": "guest"
+            "username": "skinny_pete",
+            "password": "pete123",
+            "role": "user"
+        },
+        {
+            "id": 100,
+            "username": "daddylizard",
+            "password": "big-lizard-67!",
+            "role": "bigadmin"
+        },
+        {
+            "id": 123,
+            "username": "admin",
+            "password": "lil-lizard-123!",
+            "role": "admin"
         }
     ]
 }

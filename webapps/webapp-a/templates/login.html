@@ -13,6 +13,10 @@
         <button type="submit">Login</button>
     </form>
 
+    {% if error %}
+    <p><strong>{{ error }}</strong></p>
+    {% endif %}
+
     <p>If you know then you know, if you don't know then don't worry about it.</p>
 </body>
 </html>

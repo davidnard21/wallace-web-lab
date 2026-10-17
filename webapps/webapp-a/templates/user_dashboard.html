@@ -6,7 +6,79 @@
     <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
 </head>
 <body>
-    <h1>The User Dashboard</h1>
-    <p>Hello {{ username }}</p>
+    <div class="top">
+        <h1>Corn Wallace Jaywalk Cherry Co.</h1>
+        <p>Operator Portal - street level access</p>
+        <p>Logged in as: <strong>{{ username }}</strong> ({{ role_name }})</p>
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div id="about">
+        <h2>Operator Profile</h2>
+        <p>Operator ID: <strong>{{ userid }}</strong></p>
+        <p>Clearance: {{ role_name }}</p>
+        <p>Reports to: The Boss (Operator #123)</p>
+        <p>Your shipment reference numbers look like #1043 - quote these when calling the boss.</p>
+
+        <h3>Edit Profile</h3>
+        <!-- profile fields are synced straight from this form, server handles the rest -->
+        <form action="/user/profile" method="POST">
+            <input type="hidden" name="role" value="user">
+            <label>Display name:</label>
+            <input type="text" name="display_name" placeholder="{{ username }}"><br><br>
+            <label>Favorite cherry product:</label>
+            <input type="text" name="fav_product" placeholder="cherries"><br><br>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+
+    <div id="services">
+        <h2>My Shipment History</h2>
+        <table border="1">
+            <tr>
+                <th>Order ID</th>
+                <th>Item</th>
+                <th>Status</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.item }}</td>
+                <td>{{ order.status }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3">No shipments on file. The boss says you gotta earn it.</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="contact">
+        <h2>Ticket to Management</h2>
+        <p>Got a problem? File it. The boss reads every ticket personally.</p>
+        <form action="/user/tickets" method="POST">
+            <textarea name="ticket" rows="4" cols="50" placeholder="Dear the boss..."></textarea><br>
+            <button type="submit">Submit Ticket</button>
+        </form>
+    </div>
+
+    <h2>Notifications</h2>
+    <ul>
+        <li>The boss: "We are not a drug operation. We are a cherry operation. Say the words." </li>
+        <li>Maintenance: the walk-in freezer is NOT for "product". Stop asking.</li>
+        <li>The boss: "Tread lightly near the cherry fields."</li>
+        <li>Reminder: weekend jaywalking seminar is mandatory.</li>
+    </ul>
+
+    <div>
+        <h2>Need to Know</h2>
+        <p>Operation plans and the secret formula are management eyes only.</p>
+        <a href="/plans">Operation Plans</a> (pending clearance)
+    </div>
+
+    <footer>
+        <p>Corn Wallace Jaywalk Cherry Co. - "We ship fruit, legally"</p>
+    </footer>
 </body>
 </html>
