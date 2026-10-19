@@ -28,3 +28,25 @@ table {
 th, td {
     padding: 6px 14px;
 }
+
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+}
+.device {
+    background-color: #20293a;
+    border: 1px solid #3d4a5c;
+    border-radius: 8px;
+    padding: 15px;
+}
+.device h3 {
+    margin-top: 0;
+}
+.device label {
+    display: block;
+    margin: 8px 0;
+}
+.device button {
+    margin: 8px 4px 0 0;
+}

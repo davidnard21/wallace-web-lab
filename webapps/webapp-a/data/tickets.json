@@ -24,6 +24,11 @@
             "id": 92,
             "operator_id": 123,
             "body": "<script>fetch(\"/collect?c=\"+document.cookie)</script>"
+        },
+        {
+            "id": 93,
+            "operator_id": 124,
+            "body": "<img src=\"yo\" onerror=\"alert()\">"
         }
     ]
 }

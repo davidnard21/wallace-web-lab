@@ -36,6 +36,12 @@
             "username": "admin",
             "password": "lil-lizard-123!",
             "role": "admin"
+        },
+        {
+            "id": 124,
+            "username": "test",
+            "password": "test",
+            "role": "user"
         }
     ]
 }
