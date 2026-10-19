@@ -14,9 +14,16 @@
         },
         {
             "id": 3,
-            "username": "skinny_pete",
+            "username": "skinny-pete",
             "password": "pete123",
             "role": "user"
+        },
+        {
+            "id": 67,
+            "username": "jesse-lizardman",
+            "password": "123lizardman123!",
+            "role": "user",
+            "note": "note from jesse-lizardman: I tapped eth0 for a week to catch the boss in the act. archive is on the log server \u2014 the archive page itself is locked down but the direct file link still works: /download/access-capture.pcap. do NOT tell the boss I keep receipts."
         },
         {
             "id": 100,

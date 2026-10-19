@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Internal Log Server</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top">
+        <h1>Internal Log Server</h1>
+        <p>central shipment + access log archive (internal only)</p>
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Recent entries</h2>
+        <pre>{{ entries }}</pre>
+    </div>
+
+    <div class="card">
+        <h2>Packet captures</h2>
+        <ul>
+            <li><a href="/download/access-capture.pcap">access-capture.pcap</a> - eth0 tap, week 42</li>
+        </ul>
+    </div>
+</body>
+</html>

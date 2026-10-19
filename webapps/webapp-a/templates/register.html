@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Operator Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
+</head>
+<body class="center">
+    <div class="card">
+    <h1>Wallace Washes LLC — Now Hiring</h1>
+    <p>Fruit handlers wanted. Flexible hours. Must not ask questions about the freezer.</p>
+    <form method="POST" action="/register">
+        <input type="text" name="username" placeholder="Desired operator name"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <button type="submit">Apply</button>
+    </form>
+
+    {% if error %}
+    <p><strong>{{ error }}</strong></p>
+    {% endif %}
+
+    <p><a href="/login">Already on the payroll?</a></p>
+    </div>
+</body>
+</html>

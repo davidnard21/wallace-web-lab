@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HomeHub — Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="center">
+    <h1>🏠 HomeHub</h1>
+    <p>Wallace Washes LLC — Smart Home Management Platform</p>
+    <p><em>Authorized personnel only. All access is logged.</em></p>
+    <form method="POST" action="/login">
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <button type="submit">Authenticate</button>
+    </form>
+
+    {% if error %}
+    <p><strong>{{ error }}</strong></p>
+    {% endif %}
+</body>
+</html>

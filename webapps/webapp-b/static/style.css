@@ -1,0 +1,30 @@
+body {
+    background-color: #1e2430;
+    color: #d6e0e8;
+    font-family: monospace;
+}
+.top {
+    background-color: #24506e;
+    padding: 20px;
+}
+.center {
+    text-align: center;
+    padding-top: 60px;
+}
+.card {
+    background-color: #2a3342;
+    border: 1px solid #3d4a5c;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+}
+footer {
+    padding: 20px;
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    padding: 6px 14px;
+}

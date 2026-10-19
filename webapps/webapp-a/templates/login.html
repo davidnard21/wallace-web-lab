@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
 </head>
+
 <body class="center">
-    <h1>Super Secret Login Portal</h1>
-    <form method="POST" action="/login">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password"> <br>
-        <button type="submit">Login</button>
-    </form>
+    <div class="card">
+        <h1>Super Secret Login Portal</h1>
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password"> <br>
+            <button type="submit">Login</button>
+        </form>
 
-    {% if error %}
-    <p><strong>{{ error }}</strong></p>
-    {% endif %}
+        {% if error %}
+        <p><strong>{{ error }}</strong></p>
+        {% endif %}
 
-    <p>If you know then you know, if you don't know then don't worry about it.</p>
+        <p>If you know then you know, if you don't know then don't worry about it.</p>
+        <p><em>No account? The front office is <a href="/register">hiring</a>.</em></p>
+    </div>
 </body>
+
 </html>
