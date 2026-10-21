@@ -21,15 +21,18 @@
 
     <div class="card">
         <h2>Device Controls</h2>
+        <!-- You must find all 4 secret entries in order to get a secret shell -->
+        <form id="calibration-form" method="POST" action="/settings"></form>
+        {% if message %}<p><strong>{{ message }}</strong></p>{% endif %}
         <div class="device-grid">
             <div class="device">
                 <h3>🛁 Hot Tub</h3>
                 <p>Current temp: <strong>101°F</strong></p>
                 <label>Target temp:
-                    <input type="number" value="102" min="80" max="104"> °F
+                    <input type="number" name="hot_tub_target" form="calibration-form" step="0.1" value="{{ settings.get('hot_tub_target', '102') }}" min="80" max="104"> °F
                 </label>
                 <label><input type="checkbox" checked> Jets on</label>
-                <button>Toggle Power</button>
+                <button type="button">Toggle Power</button>
             </div>
 
             <div class="device">
@@ -41,7 +44,7 @@
                 <label>Freezer temp:
                     <input type="number" value="0" min="-10" max="5"> °F
                 </label>
-                <button>Toggle Ice Maker</button>
+                <button type="button">Toggle Ice Maker</button>
             </div>
 
             <div class="device">
@@ -55,11 +58,11 @@
                     </select>
                 </label>
                 <label>Time:
-                    <input type="number" value="1" min="0" max="30"> min
-                    <input type="number" value="30" min="0" max="59"> sec
+                    <input type="number" name="micro_min" form="calibration-form" value="{{ settings.get('micro_min', '1') }}" min="0" max="30"> min
+                    <input type="number" name="micro_sec" form="calibration-form" value="{{ settings.get('micro_sec', '30') }}" min="0" max="59"> sec
                 </label>
-                <button>Start</button>
-                <button>Stop</button>
+                <button type="button">Start</button>
+                <button type="button">Stop</button>
             </div>
 
             <div class="device">
@@ -73,7 +76,7 @@
 
             <div class="device">
                 <h3>📺 TV</h3>
-                <button>Power</button>
+                <button type="button">Power</button>
                 <label>Volume:
                     <input type="range" min="0" max="100" value="30">
                 </label>
@@ -134,25 +137,37 @@
 
             <div class="device">
                 <h3>🚗 Garage Door</h3>
-                <p>Status: <strong>Closed</strong></p>
-                <button>Open / Close</button>
+                <p>Status: <strong>{{ settings.get('garage_state', 'closed')|capitalize }}</strong></p>
+                <label>State:
+                    <select name="garage_state" form="calibration-form">
+                        <option value="closed" {% if settings.get('garage_state', 'closed') == 'closed' %}selected{% endif %}>Closed</option>
+                        <option value="open" {% if settings.get('garage_state') == 'open' %}selected{% endif %}>Open</option>
+                    </select>
+                </label>
                 <label><input type="checkbox"> Auto-close after 10 min</label>
             </div>
 
             <div class="device">
                 <h3>💡 Lights</h3>
                 <label>Living room:
-                    <input type="range" min="0" max="100" value="80">
+                    <input type="range" name="lights_living" form="calibration-form" min="0" max="100" value="{{ settings.get('lights_living', '80') }}">
                 </label>
                 <label>Kitchen:
-                    <input type="range" min="0" max="100" value="100">
+                    <input type="range" name="lights_kitchen" form="calibration-form" min="0" max="100" value="{{ settings.get('lights_kitchen', '100') }}">
                 </label>
                 <label>Bedroom:
-                    <input type="range" min="0" max="100" value="0">
+                    <input type="range" name="lights_bedroom" form="calibration-form" min="0" max="100" value="{{ settings.get('lights_bedroom', '0') }}">
                 </label>
-                <button>All On</button>
-                <button>All Off</button>
+                <button type="button">All On</button>
+                <button type="button">All Off</button>
             </div>
+        </div>
+        <div>
+            <button type="submit" form="calibration-form">Apply Configuration</button>
+            <form method="POST" action="/settings" style="display:inline">
+                <input type="hidden" name="reset" value="1">
+                <button type="submit">Restore factory cherries</button>
+            </form>
         </div>
     </div>
 

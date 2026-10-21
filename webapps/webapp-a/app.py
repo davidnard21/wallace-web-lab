@@ -101,7 +101,7 @@ def home():
 
 @app.route("/robots.txt")
 def robots():
-    body = "User-agent: *\nDisallow: /register\nDisallow: /plans\nDisallow: /admin1/\n"
+    body = "User-agent: *\nDisallow: /register\nDisallow: /plans\nDisallow: /admin1/"
     return app.response_class(body, mimetype="text/plain")
 
 # --------------------
@@ -295,6 +295,18 @@ def update_profile():
 
     # role is re-read from users.json on the next request — promotes them immediately
     return redirect(url_for("dashboard"))
+
+@app.route("/plans")
+@login_required
+@role_required("admin")
+def plans():
+    return render_template("plans.html")
+
+@app.route("/secret-cherry-formula")
+@login_required
+@role_required("bigadmin")
+def secret():
+    return render_template("secret_cherry.html")
 
 @app.route("/dashboard/admin/admintools")
 @login_required
