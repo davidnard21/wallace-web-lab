@@ -17,6 +17,21 @@ footer {
 img {
     width: 500px;
 }
+a {
+    color: limegreen;
+    font-weight: bold;
+}
+a:active {
+    color: limegreen;
+}
+a:visited {
+    color: tomato;
+}
+a:hover {
+    background: linear-gradient(45deg, red, orange, yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 /* DASHBOARD CARDS */
 .card {
