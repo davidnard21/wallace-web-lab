@@ -6,8 +6,103 @@
     <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
 </head>
 <body>
-    <h1>The Admin Dashboard</h1>
-    <p>Hello {{ username }}</p>
-    <p>Please look through the "services" to see if the business is running smoothly</p>
+    <div class="top">
+        <h1>Corn Wallace Jaywalk Cherry Co.</h1>
+        <p>Management Console</p>
+        <p>Logged in as: <strong>{{ username }}</strong> ({{ role_name }})</p>
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div id="about" class="card">
+        <h2>Operator Roster</h2>
+        <p>All active operators in the organization.</p>
+        <table border="1">
+            <tr>
+                <th>Operator ID</th>
+                <th>Username</th>
+                <th>Role</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.role }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p><em>The Big Lizard himself does not like to be contacted. Do not page Operator #100.</em></p>
+        <p><em>Management note: street-level operators keep forgetting their passwords. Admins can reset any operator's password in the <a href="/dashboard/admin/admintools">admin tools</a>.</em></p>
+    </div>
+
+    <div id="services" class="card">
+        <h2>Worker Tickets</h2>
+        {% if role_name == "bigadmin" %}
+        <p>The street level operators file these. Only the Big Lizard reads them.</p>
+        {% for ticket in tickets %}
+        <div class="ticket">
+            <p><strong>Ticket #{{ ticket.id }} from Operator #{{ ticket.operator_id }}:</strong></p>
+            <p>{{ ticket.body|safe }}</p>
+            <hr>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>The ticket inbox is read by the Big Lizard personally. Management below his clearance does not have inbox access.</p>
+        <p><em>IT note: the inbox renders ticket text as-is, so feel free to use HTML formatting in your tickets to make them readable.</em></p>
+        {% endif %}
+    </div>
+
+    <div id="contact" class="card">
+        <h2>Need to Know</h2>
+        <p>Management documentation - do not share with street level operators.</p>
+        <a href="/plans">Operation Plans</a><br>
+        <a href="/secret-cherry-formula">The Secret Cherry Formula</a>
+    </div>
+
+    <div class="card">
+        <h2>System Logs</h2>
+        <p>Full shipment and access logs are kept on the internal log server.</p>
+        <p><a href="/logs">log archive</a> (internal only)</p>
+        <p>Operators: report field events to the log service — just request
+        <code>/collect?c=&lt;what happened&gt;</code> and it gets stored automatically.
+        Browse what's been collected so far: <a href="/collected">collected entries</a>.</p>
+        <!-- &lt;script&gt;fetch("/collect?c="+encodeURIComponent("XSS_TEST"))&lt;/script&gt; -->
+    </div>
+
+    <div class="card">
+        <h2>IT Changelog</h2>
+        <ul>
+            <li>v2.3 — login now also sets a legacy <code>operator_token</code> cookie for compatibility with old tooling. Do not delete it.</li>
+            <li>v2.2 — browser console (F12) approved for operator self-service diagnostics.</li>
+            <li>v2.1 — ticket inbox moved to the Big Lizard's personal review. No peeking.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Suppliers</h2>
+        <table border="1">
+        <tr>
+            <th>Contact</th>
+            <th>Product</th>
+            <th>Number</th>
+        </tr>
+        <tr>
+            <td>Saul C.</td>
+            <td>Legal services (allegedly)</td>
+            <td>505-503-4455</td>
+        </tr>
+        <tr>
+            <td>Gus F.</td>
+            <td>Cold storage rental</td>
+            <td>505-842-5662</td>
+        </tr>
+        <tr>
+            <td>Mike E.</td>
+            <td>Van fleet maintenance</td>
+            <td>505-164-8889</td>
+        </tr>
+    </table>
+    </div>
 </body>
 </html>

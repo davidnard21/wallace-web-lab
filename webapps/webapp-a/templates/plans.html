@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test Flask App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Flask uses Jinja2 so we gotta use this wack ahh style link -->
+</head>
+<body>
+    <div class="top">
+        <h1>Operation Plans - MANAGEMENT EYES ONLY</h1>
+    </div>
+
+    <div class="card">
+        <h2>Q3 Objectives</h2>
+        <ol>
+            <li>Phase 1: Launder... I mean, <em>launder clothing</em>. Laundromat revenue is up 1000000000%.</li>
+            <li>Phase 2: Scale the cherry operation. Demand is high. Supply is "cultivated".</li>
+            <li>Phase 3: Expand distribution to the <em><strong>smart-home</strong></em> market.</li>
+            <li>Phase 4: ??? (the boss says "you don't need to know phase 4")</li>
+            <li>Phase 5: Profit.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>Operational Notes</h2>
+        <ul>
+            <li>(Y0u_fo3nd_0u5_Pl4nz)</li>
+            <li>If anyone asks, we sell fruit. <strong>We sell fruit.</strong></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Clearance Reminder</h2>
+        <p>The formula is on a need-to-know basis and you, apparently, do not need to know.</p>
+        <p>Only bossman can see <a href="/secret-cherry-formula">the formula</a>.</p>
+    </div>
+</body>
+</html>

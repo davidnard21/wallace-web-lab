@@ -1,0 +1,7 @@
+2026-10-12 08:41:02 operator#100 login OK from 10.13.37.66 (bgadm portal)
+2026-10-12 08:41:07 operator#100 GET /dashboard OK
+2026-10-14 22:15:33 operator#123 login FAILED (bad password) from 10.13.37.66
+2026-10-14 22:15:40 operator#123 login OK from 10.13.37.66
+2026-10-17 03:02:11 eth0 tap archive written: access-capture.pcap (see captures)
+2026-10-18 19:44:59 operator#1 GET /plans DENIED (clearance insufficient)
+2026-10-19 09:12:45 operator#67 GET /download/access-capture.pcap 200 (UNAUTHORIZED ACCESS LOGGED)

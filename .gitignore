@@ -1,1 +1,5 @@
-.venv/
+.venv/uploads/
+
+uploads/
+settings.json
+lab.log

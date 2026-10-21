@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HomeHub — Calibration Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top">
+        <h1>🧪 Calibration Lab</h1>
+        <p>HomeHub Facility Purge Utility — RESTRICTED</p>
+        <p>Authenticated as: <strong>{{ user }}</strong></p>
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Facility Purge</h2>
+        <p>
+            In the event of an unannounced inspection, this utility renders
+            all rooms 100% spotless. Residue-free. Not a ghost of a chance
+            anyone finds anything.
+        </p>
+        
+        {% if purged %}
+        <table border="1">
+            <tr><th>Room</th><th>Status</th></tr>
+            {% for room, status in statuses.items() %}
+            <tr><td>{{ room }}</td><td><strong>{{ status }}</strong></td></tr>
+            {% endfor %}
+        </table>
+        <p>💥💥💥 Better call Saul — 505-503-4455. He handles the legal, not the smell. 💥💥💥</p>
+        {% else %}
+        <form method="POST" action="{{ url_for('purge') }}">
+            <label>Purge target:
+                <input type="text" name="target" placeholder="living-room">
+            </label>
+            <button type="submit">INITIATE PURGE</button>
+        </form>
+        <p><em>No refunds. No receipts. No survivors. (of the smell)</em></p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>HomeHub v2.1 — Facility Purge Utility. This page does not exist.</p>
+    </footer>
+</body>
+</html>
