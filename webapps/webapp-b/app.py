@@ -218,4 +218,5 @@ def dashboard():
                            wallpaper_current=None, settings=load_settings())
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=5001)
+    app.run(host=os.environ.get("HOST", "localhost"),
+            port=int(os.environ.get("PORT", "5001")))

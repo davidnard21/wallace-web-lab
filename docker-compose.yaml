@@ -1,0 +1,39 @@
+services:
+  webapp-a:
+    build: ./webapps/webapp-a
+    ports:
+      - "5002:5000"
+    environment:
+      HOST: 0.0.0.0
+      PORT: "5000"
+    volumes:
+      - webapp_a_data:/app/data
+    restart: unless-stopped
+
+  webapp-b:
+    build: ./webapps/webapp-b
+    ports:
+      - "5001:5001"
+    environment:
+      HOST: 0.0.0.0
+      PORT: "5001"
+    volumes:
+      # read webapp-a's users.json (creds shared between sites)
+      - webapp_a_data:/webapp-a/data:ro
+      # uploads must be visible to the php server
+      - webapp_b_uploads:/app/uploads
+    depends_on:
+      - webapp-a
+    restart: unless-stopped
+
+  php-server:
+    build: ./webapps/php-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - webapp_b_uploads:/uploads
+    restart: unless-stopped
+
+volumes:
+  webapp_a_data:
+  webapp_b_uploads:
