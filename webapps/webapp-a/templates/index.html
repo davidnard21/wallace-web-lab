@@ -10,55 +10,84 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 id="Home">🦎 Wallace Washes LLC</h1>
-        <div class="menubar">
-            <a href="#Home">Home</a> || <a href="#About">About</a> || <a href="#Services">Services</a>
-        </div>
-        <div class="page">
-            <h2 id="Services" class="center">About Us</h2>
+    <header>
+        <h1>🦎 Wallace Washes LLC</h1>
+        <p>Clean clothes. Plus other stuff.</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section class="top">
+            <h2>Welcome to Wallace Washes!</h2>
             <p>
-                Wallace Washes LLC is your friendly neighborhood laundromat, proudly owned and operated by Wallace
-                Jaywalk. We offer self-service washing, drying, and wash-and-fold service — and now, thanks to popular demand, seasonal
-                fruit sales!
+                Your neighborhood laundromat, proudly owned
+                and operated by Wallace Jaywalk.
             </p>
             <p>
-                Please note: we do not sell cherries. We have never sold cherries. The cherries are not for sale and are
-                not located on the premises. Any inquiries regarding cherries, cherry pricing, cherry availability, or "the good stuff from
-                Michigan" should be directed to Wallace directly, in person, after midnight, preferably in cash.
+                We take pride in keeping things spotless.
+                Every load is handled with care.
             </p>
-            <p class="comic">
-                Thanks for supporting a local business!
+            <a class="button" href="#services">Our Services</a>
+        </section>
+
+        <section class="card">
+            <h2>Meet Wallace</h2>
+            <img src="{{ url_for('static', filename='images/wallace.png') }}"/>
+            <p>
+                Wallace Jaywalk is a friendly neighborhood
+                lizard with a passion for clean clothes
+                and small business ventures.
             </p>
-            <div class="box raised">
-                <p class="comic blink">NEW! Washing Machines!</p>
-            </div>
-
-            <div class="center">
-                <h2>Our Services</h2>
-
-                <table style="margin: auto;" class="box">
-                    <tr>
-                        <td>Washing</td>
-                        <td>$2.00</td>
-                    </tr>
-                    <tr>
-                        <td>Drying</td>
-                        <td>$1.00</td>
-                    </tr>
-                    <tr>
-                        <td>Fresh Produce</td>
-                        <td>Bring Cash to Back</td>
-                    </tr>
-                    <tr>
-                        <td>Towel Folding</td>
-                        <td>$3.50</td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-    </div>
+            <p>
+                Wallace opened his laundromat after years
+                of working in a more complicated line of work.
+                He eventually decided it was time for
+                something a little more predictable.
+            </p>
+            <p>
+                His motto? "No sock left behind!"
+            </p>
+            <p>
+                Wallace Washes LLC is always hiring night-shift
+                operators. Applications are handled through the back office —
+                <a href="/register">apply here</a> (discretion expected).
+            </p>
+        </section>
+        <section class="card">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Self-Service Washing - $3.00</li>
+                <li>Self-Service Drying - $2.00</li>
+                <li>Wash & Fold Service - $10.00</li>
+                <li>Stain Removal - Ask for Pricing</li>
+                <li>Lost Sock Investigation - FREE</li>
+            </ul>
+            <p>
+                For specialty cleaning inquiries,
+                please speak directly with Wallace.
+            </p>
+        </section>
+        <section class="card">
+            <h2>Visit Us!</h2>
+            <p><strong>Owner:</strong> Wallace Jaywalk</p>
+            <p><strong>Business:</strong> Wallace Washes LLC</p>
+            <p><strong>Hours:</strong> 8 AM - 10 PM, Daily</p>
+            <p><strong>Email:</strong> wallace@example.com</p>
+            <p><strong>Location:</strong> 123 Lizard Lane</p>
+            <p>
+                Please use the front entrance.
+                Rear access is reserved for deliveries.
+            </p>
+        </section>
+    </main>
+    <footer class="card">
+        <p>&copy; 2026 Wallace Washes LLC</p>
+        <p>Locally owned. Independently operated.</p>
+        <p>Thank you for supporting small businesses.</p>
+    </footer>
 </body>
 
 </html>

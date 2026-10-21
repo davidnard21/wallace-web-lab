@@ -2,21 +2,46 @@
     "users": [
         {
             "id": 1,
-            "username": "admin",
-            "password": "admin123",
-            "role": "admin"
-        },
-        {
-            "id": 2,
             "username": "student",
             "password": "student123",
             "role": "user"
         },
         {
+            "id": 2,
+            "username": "badger",
+            "password": "badger123",
+            "role": "user"
+        },
+        {
             "id": 3,
-            "username": "guest",
-            "password": "guest123",
-            "role": "guest"
+            "username": "skinny-pete",
+            "password": "pete123",
+            "role": "user"
+        },
+        {
+            "id": 67,
+            "username": "jesse-lizardman",
+            "password": "123lizardman123!",
+            "role": "user",
+            "note": "note from jesse-lizardman: I tapped eth0 for a week to catch the boss in the act. archive is on the log server \u2014 the archive page itself is locked down but the direct file link still works: /download/access-capture.pcap. do NOT tell the boss I keep receipts."
+        },
+        {
+            "id": 100,
+            "username": "daddylizard",
+            "password": "big-lizard-67!",
+            "role": "bigadmin"
+        },
+        {
+            "id": 123,
+            "username": "admin",
+            "password": "lil-lizard-123!",
+            "role": "admin"
+        },
+        {
+            "id": 124,
+            "username": "test",
+            "password": "test",
+            "role": "user"
         }
     ]
 }

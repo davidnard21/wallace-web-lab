@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Collected Logs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top">
+        <h1>Log Service</h1>
+        <p>accepts shipments of logs</p>
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Collected</h2>
+        <pre>{{ entries }}</pre>
+        <p><em>Entries are stored verbatim, exactly as browsers sent them.
+        Tip: tokens ending in <strong>=</strong> are usually base64 — paste one into any
+        "base64 decode" tool to read it.</em></p>
+    </div>
+</body>
+</html>

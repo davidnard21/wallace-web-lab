@@ -7,6 +7,31 @@
     --active: #ee0000;
     --ink: #000000;
 }
+img {
+    width: 500px;
+}
+
+a {
+    color: limegreen;
+    font-weight: bold;
+}
+a:visited {
+    color: limegreen;
+}
+
+/* DASHBOARD CARDS */
+.card {
+    background-color: #333;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+}
+.note {
+    background-color: #40402e;
+    border-left: 3px solid #b8a444;
+    padding: 8px 12px;
+}
 
 /* ---------- base ---------- */
 body {
