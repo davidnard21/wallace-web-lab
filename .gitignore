@@ -1,5 +1,7 @@
-.venv/uploads/
+.venv/
+__pycache__/
+*.py[cod]
 
-uploads/
-settings.json
-lab.log
+# uploads: keep the folder, ignore its contents
+webapps/webapp-b/uploads/*
+!webapps/webapp-b/uploads/.gitkeep
