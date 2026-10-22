@@ -12,7 +12,7 @@ import time
 
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:5000"
+BASE = "http://localhost:5002"
 INTERVAL = 15  # seconds between visits
 
 def visit_inbox():

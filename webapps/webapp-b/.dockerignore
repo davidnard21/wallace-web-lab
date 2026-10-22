@@ -1,4 +1,5 @@
-__pycache__/
-*.py[cod]
-.venv/
 uploads/
+settings.json
+lab.log
+collected.log
+__pycache__/

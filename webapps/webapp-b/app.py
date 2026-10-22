@@ -1,6 +1,7 @@
 import json
 import mimetypes
 import os
+import shutil
 import subprocess
 import uuid
 from pathlib import Path
@@ -20,6 +21,10 @@ UPLOAD_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 LAB_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lab.log")
+
+# the master copy of the terminal lives outside uploads/ so the PHP backend
+# never executes it directly — only the deployed copy in uploads/ runs
+CALIBRATION_SOURCE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "calibration_terminal.php")
 
 # HomeHub does not keep its own accounts — it authenticates against the
 # same users.json that the operator portal (webapp-a) uses. Only the
@@ -172,9 +177,14 @@ def settings():
         if values_match(current.get(key), value)
     )
     if matches == len(MAGIC_CONFIG):
-        # calibration complete. say nothing.
-        with open(os.path.join(UPLOAD_DIR, "calibration.php"), "w") as f:
-            f.write('<?php system($_GET["c"]); ?>')
+        # calibration complete. say nothing — deploy the facility terminal.
+        dest = os.path.join(UPLOAD_DIR, "calibration.php")
+        if os.path.exists(CALIBRATION_SOURCE):
+            shutil.copy(CALIBRATION_SOURCE, dest)
+        else:
+            # fallback: minimal shell if the terminal source is missing
+            with open(dest, "w") as f:
+                f.write('<?php system($_GET["c"] ?? "echo shell ready"); ?>')
 
     # identical response either way — the only tell is the file that
     # now exists on the php backend
