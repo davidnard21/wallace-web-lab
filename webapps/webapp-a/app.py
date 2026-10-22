@@ -168,14 +168,25 @@ def logout():
 
 BACKUP_DIR = Path(__file__).parent / "static" / "admin1" / "thickbox" / "zips" / "seed" / "_dummy" / "backup"
 
+# intermediate "directories" along the admin1 path get a real page so
+# directory fuzzers see 200 and keep recursing deeper
+ADMIN1_INTERMEDIATE_PATHS = {
+    "",
+    "thickbox",
+    "thickbox/zips",
+    "thickbox/zips/seed",
+    "thickbox/zips/seed/_dummy",
+    "thickbox/zips/seed/_dummy/backup",
+}
+
 @app.route("/admin1")
 @app.route("/admin1/")
 @app.route("/admin1/<path:subpath>")
 def admin1_gate(subpath=None):
-    # intermediate "directories" answer 403 instead of 404 so directory
-    # fuzzers recurse into them; the real route below serves the payloads
-    if subpath and subpath.startswith("thickbox/zips/seed/_dummy/backup/"):
-        abort(404)  # never reached — more specific route handles it
+    if subpath is None or subpath.rstrip("/") in ADMIN1_INTERMEDIATE_PATHS:
+        return app.response_class("almost there...\n", mimetype="text/plain")
+    # unknown deeper paths: 403 looks like a permissions wall, 404 like the
+    # path ends here — either way the real payload routes below still resolve
     return app.response_class("403 Forbidden — clearance insufficient\n", status=403, mimetype="text/plain")
 
 @app.route("/admin1/thickbox/zips/seed/_dummy/backup/<path:filename>")
