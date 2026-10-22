@@ -357,4 +357,4 @@ def dashboard_admin():
 if __name__ == "__main__":
     app.run(host=os.environ.get("HOST", "localhost"),
             port=int(os.environ.get("PORT", "5000")),
-            debug=True)
+            debug=False)
