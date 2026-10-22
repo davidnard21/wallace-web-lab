@@ -168,6 +168,16 @@ def logout():
 
 BACKUP_DIR = Path(__file__).parent / "static" / "admin1" / "thickbox" / "zips" / "seed" / "_dummy" / "backup"
 
+@app.route("/admin1")
+@app.route("/admin1/")
+@app.route("/admin1/<path:subpath>")
+def admin1_gate(subpath=None):
+    # intermediate "directories" answer 403 instead of 404 so directory
+    # fuzzers recurse into them; the real route below serves the payloads
+    if subpath and subpath.startswith("thickbox/zips/seed/_dummy/backup/"):
+        abort(404)  # never reached — more specific route handles it
+    return app.response_class("403 Forbidden — clearance insufficient\n", status=403, mimetype="text/plain")
+
 @app.route("/admin1/thickbox/zips/seed/_dummy/backup/<path:filename>")
 def backup_portal(filename):
     # legacy "backup portal" — the lizard photo's EXIF has the admin creds
@@ -329,12 +339,48 @@ def reset_password(user_id: int):
         users = load_users()
         for user in users:
             if user["id"] == user_id:
-                # ← THE VULN: admins can reset "operator" passwords, but nobody
-                # ever checked the TARGET's clearance. management included.
+                if user["role"] == "bigadmin":
+                    # management credentials cannot be changed from the web UI.
+                    # admins must use the /api/admin/reset integration instead.
+                    abort(403)
                 user["password"] = new_password
                 break
         save_users(users)
     return redirect(url_for("admintools"))
+
+@app.route("/api/admin/reset", methods=["POST"])
+@login_required
+@role_required("admin")
+def api_admin_reset():
+    """Privileged password-reset integration for the management account.
+
+    Only reachable via an authenticated POST as an 'admin' (or bigadmin)
+    user. Accepts JSON or form data:
+
+        {"username": "daddylizard", "new_password": "..."}
+
+    Returns JSON so it is meant to be called with curl/fetch, not from the
+    admin tools UI.
+    """
+    data = request.get_json(silent=True) or request.form
+    username = (data.get("username") or "").strip()
+    new_password = data.get("new_password") or ""
+
+    if not username or not new_password:
+        return {"error": "username and new_password are required"}, 400
+
+    # this endpoint exists to rotate the boss's credentials
+    if username != "daddylizard":
+        return {"error": "only the management account may be reset via this endpoint"}, 400
+
+    users = load_users()
+    for user in users:
+        if user["username"] == username:
+            user["password"] = new_password
+            save_users(users)
+            return {"status": "ok", "username": username, "message": "password updated"}
+
+    return {"error": "unknown user"}, 404
 
 @app.route("/dashboard/admin")
 @login_required

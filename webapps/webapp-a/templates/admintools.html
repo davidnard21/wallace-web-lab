@@ -28,12 +28,18 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.role }}</td>
+                {% if user.role == "bigadmin" %}
+                <td>
+                    <em>🔒 locked — management credentials cannot be reset here</em>
+                </td>
+                {% else %}
                 <td>
                     <form action="{{ url_for('reset_password', user_id=user.id) }}" method="POST" style="display:inline">
                         <input type="password" name="password" placeholder="new password" size="12" required>
                         <button type="submit">Reset</button>
                     </form>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
