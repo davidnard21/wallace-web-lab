@@ -359,6 +359,34 @@ def reset_password(user_id: int):
         save_users(users)
     return redirect(url_for("admintools"))
 
+@app.route("/api/")
+def api_index():
+    """API root — lists available endpoints so it turns up in scans.
+    Trailing-slash routes on purpose: Flask then 308-redirects /api -> /api/,
+    which is the signal ffuf's -recursion uses to detect directories."""
+    return {
+        "service": "Wallace Washes Operator API",
+        "version": "1.2",
+        "endpoints": ["/api/admin", "/api/admin/reset"],
+    }
+
+@app.route("/api/admin/")
+def api_admin_index():
+    """API admin root — lists admin sub-endpoints."""
+    return {
+        "error": "authentication required",
+        "endpoints": ["/api/admin/reset"],
+        "methods": {"/api/admin/reset": "POST"},
+    }
+
+@app.route("/api/admin/reset", methods=["GET"])
+def api_admin_reset_get():
+    """GET on the reset endpoint: advertise the contract, do nothing."""
+    return {
+        "error": "method not allowed — use POST",
+        "usage": {"method": "POST", "fields": ["username", "new_password"]},
+    }
+
 @app.route("/api/admin/reset", methods=["POST"])
 @login_required
 @role_required("admin")
